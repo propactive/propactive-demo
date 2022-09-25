@@ -1,0 +1,12 @@
+name: CICD
+
+on: [push]
+
+jobs:
+  CI:
+    uses: ./.github/workflows/ci-workflow.yml
+    secrets: inherit
+  CD:
+    needs: [CI]
+    uses: ./.github/workflows/cd-workflow.yml
+    secrets: inherit
