@@ -1,0 +1,66 @@
+name: CD
+
+on: [workflow_call]
+
+env:
+  VERSION: latest
+  PROPACTIVE_PROPERTIES_DIRECTORY: properties
+  PROPACTIVE_PROPERTIES_LOCATION: ./build/properties
+  PROPACTIVE_PROPERTIES_FILENAME: application.properties
+  APP_IMAGE_SAVE_LOCATION: ./build/images
+
+jobs:
+  Prepare-Image:
+    strategy:
+      matrix:
+        environment: [ test, stage, prod ]
+    env:
+      ENVIRONMENT: ${{ matrix.environment }}
+    runs-on: ubuntu-20.04
+    steps:
+      - name: 'Checkout to current branch'
+        uses: actions/checkout@v3
+      - name: 'Set up JDK 17'
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: liberica
+          cache: gradle
+      - name: 'Building App JARs'
+        run: make build-app
+      - name: 'Building App Properties Config'
+        run: make build-app-properties
+      - name: 'Uploading generated properties file'
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.ENVIRONMENT }}-artifacts
+          path: ${{ env.PROPACTIVE_PROPERTIES_LOCATION }}
+      - name: 'Building App image'
+        run: make build-image
+      - name: 'Extracting App image to upload in the next step'
+        run: make save-image
+      - name: 'Uploading built docker image'
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.ENVIRONMENT }}-artifacts
+          path: ${{ env.APP_IMAGE_SAVE_LOCATION }}
+
+  Run-Image:
+    needs: Prepare-Image
+    strategy:
+      matrix:
+        environment: [ test, stage, prod ]
+    env:
+      ENVIRONMENT: ${{ matrix.environment }}
+    runs-on: ubuntu-20.04
+    steps:
+      - name: 'Checkout to current branch'
+        uses: actions/checkout@v3
+      - name: 'Downloading images artifact'
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.ENVIRONMENT }}-artifacts
+      - name: 'Loading Image'
+        run: docker load --input ./*-${{ env.VERSION }}-${{ env.ENVIRONMENT }}.tar
+      - name: 'Running Image'
+        run: make -s run-image >> $GITHUB_STEP_SUMMARY
