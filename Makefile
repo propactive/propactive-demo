@@ -54,6 +54,10 @@ test-app:
 	@echo "## Testing the application ..."
 	$(call toolchain_runner, ./gradlew test --info)
 
+lint:
+	@echo "## Ktlint check ..."
+	$(call toolchain_runner, ./gradlew ktCh --continue)
+
 build-app:
 	@echo "## Building the application ..."
 	$(call toolchain_runner, ./gradlew build -x test --info)

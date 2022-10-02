@@ -29,7 +29,7 @@ object Launcher {
             properties.getProperty(urlPropertyKey).let(::URL),
             properties.getProperty(timoutInMsPropertyKey).toInt(),
             properties.getProperty(uuidPropertyKey).let(UUID::fromString),
-            properties.getProperty(primePropertyKey).toInt(),
+            properties.getProperty(primePropertyKey).toInt()
         ).let(::println)
     }
 

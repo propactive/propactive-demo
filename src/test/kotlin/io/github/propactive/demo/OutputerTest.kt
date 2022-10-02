@@ -10,7 +10,7 @@ import io.github.propactive.demo.Properties.urlPropertyKey
 import io.github.propactive.demo.Properties.uuidPropertyKey
 import io.github.propactive.demo.shared.PropertiesTestCase
 
-class OutputerTest: PropertiesTestCase() {
+class OutputerTest : PropertiesTestCase() {
 
     @Test
     fun shouldCorrectlyMapCollectedPropertiesToRespectiveKeys() {
@@ -21,7 +21,7 @@ class OutputerTest: PropertiesTestCase() {
             urlPropertyValue,
             timoutInMsPropertyValue,
             uuidPropertyValue,
-            customPropertyValue,
+            customPropertyValue
         )
 
         val expectedValue = StringBuilder()
