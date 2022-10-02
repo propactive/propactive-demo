@@ -8,22 +8,26 @@ import io.github.propactive.type.INTEGER
 import io.github.propactive.type.URL
 import io.github.propactive.type.UUID
 
-@Environment([
-    "prod:       application.properties",
-    "stage/test: *-application.properties",
-    "dev:        localhost-application.properties",
-])
+@Environment(
+    [
+        "prod:       application.properties",
+        "stage/test: *-application.properties",
+        "dev:        localhost-application.properties"
+    ]
+)
 object Properties {
-    @Property([
-        "prod: ABC",
-    ])
+    @Property(
+        [
+            "prod: ABC"
+        ]
+    )
     const val prodOnlyStringPropertyKey = "propactive.demo.string.key"
 
     @Property(
         value = [
             "prod:       433",
             "stage/test: 80",
-            "dev:        8080",
+            "dev:        8080"
         ],
         type = PORT_NUMBER::class
     )
@@ -33,7 +37,7 @@ object Properties {
         value = [
             "prod:       https://www.prodland.com",
             "stage/test: http://www.nonprodland.com",
-            "dev:        http://127.0.0.1/",
+            "dev:        http://127.0.0.1/"
         ],
         type = URL::class
     )
@@ -43,7 +47,7 @@ object Properties {
         value = [
             "prod:       3000",
             "stage/test: 10000",
-            "dev:        30000",
+            "dev:        30000"
         ],
         type = INTEGER::class
     )

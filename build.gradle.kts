@@ -11,6 +11,7 @@ plugins {
     id("io.github.propactive") version propactiveVersion
 
     kotlin("jvm") version kotlinVersion
+    id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
 }
 
 version = System.getenv("VERSION") ?: "DEV-SNAPSHOT"
@@ -28,7 +29,7 @@ application {
     applicationDefaultJvmArgs = listOf(
         "-Xmx512m",
         "-XX:MaxMetaspaceSize=256m",
-        "-Dproperties.config.path=$propertiesConfigPath",
+        "-Dproperties.config.path=$propertiesConfigPath"
     )
 
     tasks["run"]
@@ -82,6 +83,10 @@ tasks {
 
     withType<KotlinCompile>().configureEach {
         kotlinOptions.jvmTarget = "17"
+    }
+
+    ktlint {
+        verbose.set(true)
     }
 }
 

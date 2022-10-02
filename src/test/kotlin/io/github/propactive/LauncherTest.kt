@@ -25,7 +25,7 @@ import org.junit.jupiter.params.provider.CsvSource
 import java.io.File
 import java.util.*
 
-class LauncherTest: PropertiesTestCase() {
+class LauncherTest : PropertiesTestCase() {
     @Nested
     @TestInstance(PER_CLASS)
     inner class Main {
@@ -83,5 +83,4 @@ class LauncherTest: PropertiesTestCase() {
             .let { (prefix, suffix) -> File.createTempFile(prefix, suffix, parentDir) }
             .apply(callback)
             .apply { renameTo(File(parent.plus("/$APPLICATION_PROPERTIES_FILE_NAME"))) }
-
 }

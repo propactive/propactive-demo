@@ -24,6 +24,8 @@ jobs:
           path: |
             ./build/test-results/test/*.xml
             ./build/reports
+      - name: 'Klint: propactive-demo'
+        run: make lint
 
   Test-Reporter:
     needs: Test-Runner
