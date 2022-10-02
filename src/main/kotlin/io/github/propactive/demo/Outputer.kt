@@ -17,7 +17,7 @@ object Outputer {
         urlPropertyValue: URL,
         timoutInMsPropertyValue: Int,
         uuidPropertyValue: UUID,
-        customPropertyValue: Int,
+        customPropertyValue: Int
     ) = StringBuilder()
         .apply {
             takeIf { stringPropertyValue.isBlank().not() }?.append(
