@@ -62,6 +62,11 @@ build-app:
 	@echo "## Building the application ..."
 	$(call toolchain_runner, ./gradlew build -x test --info)
 
+validate-app-properties:
+	@echo "## Validating the application properties for \"$(ENVIRONMENT)\" ..."
+	$(call toolchain_runner, ./gradlew validateApplicationProperties --info \
+		-Penvironments=$(PROPACTIVE_PROPERTIES_ENV_TO_GENERATE))
+
 build-app-properties:
 	@echo "## Building the application properties for \"$(ENVIRONMENT)\" ..."
 	$(call toolchain_runner, ./gradlew generateApplicationProperties --info \

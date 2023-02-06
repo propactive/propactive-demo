@@ -28,6 +28,8 @@ jobs:
           cache: gradle
       - name: 'Building App JARs'
         run: make build-app
+      - name: 'Validating App Properties Config'
+        run: make validate-app-properties
       - name: 'Building App Properties Config'
         run: make build-app-properties
       - name: 'Uploading generated properties file'
