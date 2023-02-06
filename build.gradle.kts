@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     val kotlinVersion = "1.8.0"
-    val propactiveVersion = "1.1.4"
+    val propactiveVersion = "1.2.0"
 
     application
 
